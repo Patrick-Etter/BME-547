@@ -1,2 +1,3 @@
-# BME-547
-Duke BME 547 - Medical Software Design
+# Patient Health Database
+
+Author: Patrick Etter
