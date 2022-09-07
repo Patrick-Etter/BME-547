@@ -13,6 +13,8 @@ def interface():
             HDL_driver()
         elif choice == '2':
             LDL_driver()
+        elif choice == '3':
+            cholesterol_driver()            
 
 
 def HDL_input():
@@ -57,5 +59,27 @@ def LDL_driver():
     LDL_val = LDL_input()
     answer = check_LDL(LDL_val)
     output_LDL_result(LDL_val, answer)
+
+
+def cholesterol_input():
+    val = input('enter cholesterol value: ')
+    return int(val)
+
+def check_cholesterol(cholesterol_val):
+    if cholesterol_val < 200:
+        return 'normal'
+    elif cholesterol_val <= 239:
+        return 'borderline high'
+    else:
+        return 'high'
+
+def output_cholesterol_result(cholesterol_val, characterization):
+    print('the results for an cholesterol value of {} is {}'.format(cholesterol_val, characterization))
+
+def cholesterol_driver():
+    cholesterol_val = cholesterol_input()
+    answer = check_cholesterol(cholesterol_val)
+    output_cholesterol_result(cholesterol_val, answer)    
+
 
 interface()
