@@ -12,8 +12,8 @@ def get_full_name(patient):
 
 
 def database_lister(database_list):
-
-    for patient in database_list:
+    
+    for patient in database_list.values():
         print('Name: {}  ID No.: {}  Age: {}'.format(get_full_name(patient), patient['ID'], patient['Age']))
 
 
@@ -45,7 +45,7 @@ def main():
     db[2] = create_patient_entry('Bob', 'Boyles', 2, 24)
     db[3] = create_patient_entry('Chris', 'Chou', 3, 25)
     test_result_adder(db, 3, 'HDL', 100)
-    # database_lister(db)
+    database_lister(db)
     print(ID_patient_matcher(db, 3))
     # print('Patient {} is a {}'.format(get_full_name(db[2]), adult_or_minor(db[2])))
 
