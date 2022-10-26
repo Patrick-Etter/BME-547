@@ -76,6 +76,49 @@ def validate_new_patient_info(in_data):
     return True
 
 
+
+
+def add_test_to_patient(patient_id, test_name, test_result):
+    for patient in db:
+        if patient['id'] == patient_id:
+            patient['test_name'].append(test_name)
+            patient['test_results'].append(test_result)
+            print(patient)
+
+
+
+@app.route('/add_test', methods=['POST'])
+def add_test_to_server():
+    in_data = request.get_json()
+    message, status_code = add_test_worker(in_data)
+    return message, status_code
+
+
+def add_test_worker(in_data):
+    result = add_test_validate_data(in_data)
+    if result is not True:
+        return result, 400
+    add_test_to_patient(in_data['id'],
+                        in_data['test_name'],
+                        in_data['test_result'])
+    return 'Test successfully added', 200
+
+def add_test_validate_data(in_data):
+    if type(in_data) is not dict:
+        return 'POST data was not a dictionary'
+    expected_keys = ['id', 'test_name', 'test_result']
+    for key in expected_keys:
+        if key not in in_data:
+            return 'Key {} is missing from POST data'.format(key)
+    expected_types = [int, str, int]
+    for key, ex_type in zip(expected_keys, expected_types):
+        if type(in_data[key]) is not ex_type:
+            return 'Key {} has the wrong data type'.format(key)
+    return True    
+
+
+
+
 if __name__ == '__main__':
     init_server()
     app.run()
